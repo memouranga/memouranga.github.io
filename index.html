@@ -1,12 +1,174 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Memo Uranga</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memo Uranga</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" >
+    <script src="https://kit.fontawesome.com/d4b6f0c8db.js" crossorigin="anonymous"></script>
+  <style>
+        :root {
+            --primary: #333333;
+            --secondary: #666666;
+            --accent: #999999;
+            --background: #f9f9f9;
+            --card-bg: #ffffff;
+            --text: #121212;
+            --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            color: var(--text);
+            background-color: var(--background);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+            padding-top: 200px; /* Espacio para el card fijo */
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 3rem);
+            max-width: 770px;
+            z-index: 100;
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #333 0%, #666 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .profile-img i {
+            font-size: 3.5rem;
+            color: var(--card-bg);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.2rem;
+            color: var(--primary);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 0;
+        }
+
+        .content {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            font-size: 1.05rem;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .social-links a {
+            color: var(--secondary);
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>Hi, it's just me...</h1>
-  <p></p>
+    <div class="container">
+        <div class="card">
+            <div class="profile-img">
+                <i class="fa-solid fa-laptop-code"></i>
+            </div>
+            <div>
+                <h1>Hola, soy Memo Uranga</h1>
+                <div class="subtitle">Software Engineer</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <p>Soy Guillermo Uranga, aunque todos me conocen como <span class="highlight">Memo</span>. A mis 36 años, me considero un millennial en toda regla, viajero de corazón y creador inquieto por naturaleza, profundamente enamorado de dos personas: mi esposa y mi hija.</p>
+                
+            <p>Mi inquietud me llevó a estudiar <span class="highlight">Ingeniería de Software</span>, pues nada me apasiona más que sentarme a crear cosas que tengan un propósito real, ya sea en mi vida cotidiana o en mi desarrollo profesional teniendo a los viajes como mi mejor escuela. Cada destino me ha abierto la mente y, en numerosas ocasiones, ha transformado mi forma de pensar y mi visión sobre realmente cuál es mi propósito. Creo firmemente que conocer nuevas culturas y perspectivas es la mejor manera de conocerte y desarrollarte.</p>
+                
+            <p>Desarrollo principalmente con <span class="highlight">Ruby on Rails</span>, un framework que me permite crear aplicaciones robustas y completas en tiempo récord, combinando elegancia y productividad. La filosofía de "convención sobre configuración" de Rails me permite pasar del concepto a la implementación productiva sin distracciones innecesarias, enfocándome en lo que realmente importa: resolver problemas. Aunque siempre estoy experimentando con nuevas tecnologías, tanto de código, servicios, máquinas, etc, que amplíen mis horizontes como creador.</p>
+            
+            <p>Por lo cual, e influenciado por la profesión de mi madre y mi esposa fundé <span class="highlight">CloudHealth</span> con un sueño claro: lograr que algún día todos podamos tener pleno conocimiento de nuestra salud y, con ello, mayor control sobre nuestro bienestar. Mi visión es que las tecnologías nos ayuden a prevenir enfermedades antes que combatirlas—más vitaminas, menos antibióticos.</p>
+                
+            <p>Pero como no puedo estar en paz, junto a mis primos creamos la app de <span class="highlight">Skills N Talents</span>, una aplicación diseñada para optimizar y mejorar estilos de natación utilizando tecnología avanzada y la propia experiencia y librerías de conocimiento de ellos.</p>
+                
+            <p>Nunca estoy en paz, siempre con ideas y proyectos nuevos en manos, ahora tengo a <span class="highlight">Beyond the Code</span>, mi nuevo Blog, desarrollado y escrito por mí en donde podrás conocer más sobre mi experiencia y tecnologías con las que juego día a día. Creo que la tecnología debe estar al servicio de las personas, mejorando vidas y solucionando problemas reales. No me conformo con lo establecido, con lo común y busco constantemente nuevas formas de innovar y crear impacto positivo a través de mis proyectos.</p>
+        </div>
+
+        <div class="social-links">
+            <a href="https://github.com/memouranga" title="GitHub"><i class="fa-brands fa-github"></i> Github</a>
+            <a href="#" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#" title="Blog"><i class="fa-solid fa-blog"></i></a>
+        </div>
+    </div>
 </body>
 </html>
