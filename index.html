@@ -1,175 +1,367 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memo Uranga</title>
+    <title>Memo Uranga • Software Engineer</title>
+	
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" >
     <script src="https://kit.fontawesome.com/d4b6f0c8db.js" crossorigin="anonymous"></script>
-  <style>
+	
+    <style>
         :root {
-            --primary: #333333;
-            --secondary: #666666;
-            --accent: #999999;
-            --background: #f9f9f9;
-            --card-bg: #ffffff;
-            --text: #121212;
-            --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #e6edf3;
+            --accent-color: #7ee787;
+            --secondary-color: #79c0ff;
+            --border-color: #30363d;
+            --muted-color: #8b949e;
+            --font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
         }
+
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
         body {
             font-family: var(--font-family);
-            color: var(--text);
-            background-color: var(--background);
-            line-height: 1.7;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 0 1.5rem;
-            position: relative;
-            padding-top: 200px; /* Espacio para el card fijo */
+            padding: 2rem 1rem;
         }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(13, 17, 23, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+
+        .header.hidden {
+            transform: translateY(-100%);
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .language-selector {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .language-btn {
+            background: none;
+            border: none;
+            color: var(--muted-color);
+            font-family: var(--font-family);
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .language-btn:hover {
+            color: var(--text-color);
+        }
+
+        .language-btn.active {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .prompt-symbol {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .header-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .main-content {
+            //margin-top: 4rem;
+        }
+		
+		.title-container {
+		  display: flex;
+		  justify-content: space-between;
+		  align-items: center;
+		  width: 100%;
+		}
+
+		.profile-image {
+		  width: 100px;
+		  height: 100px;
+		  border-radius: 50%;
+		  object-fit: cover;
+		  border: 2px solid var(--accent-color);
+		  filter: grayscale(100%);
+		  transition: filter 0.3s ease;
+		}
+
+		.profile-image:hover {
+		  filter: grayscale(0%);
+		}
 
         .card {
             background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-            padding: 2rem;
-            margin-bottom: 2.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            position: fixed;
-            top: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 3rem);
-            max-width: 770px;
-            z-index: 100;
-        }
-
-        .profile-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #333 0%, #666 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .profile-img i {
-            font-size: 3.5rem;
-            color: var(--card-bg);
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 0.2rem;
-            color: var(--primary);
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--secondary);
-            margin-bottom: 0;
-        }
-
-        .content {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-            padding: 2.5rem;
-        }
-
-        p {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1.5rem;
             margin-bottom: 1.5rem;
-            text-align: justify;
-            font-size: 1.05rem;
-        }
-
-        p:last-child {
-            margin-bottom: 0;
         }
 
         .highlight {
-            color: var(--primary);
+            color: var(--accent-color);
             font-weight: 600;
+        }
+
+        .accent {
+            color: var(--secondary-color);
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
         }
 
         .social-links {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2.5rem;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
 
         .social-links a {
-            color: var(--secondary);
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
+            color: var(--muted-color);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
             text-decoration: none;
         }
 
         .social-links a:hover {
-            color: var(--primary);
-            transform: translateY(-3px);
+            color: var(--secondary-color);
+        }
+
+        .subtitle {
+            color: var(--muted-color);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 0.5em;
+            height: 1em;
+            background-color: var(--accent-color);
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+            margin-left: 0.2em;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .quote {
+            border-left: 3px solid var(--accent-color);
+            padding-left: 1rem;
+            font-style: italic;
+            color: var(--muted-color);
+            margin: 1.5rem 0;
         }
 
         @media (max-width: 600px) {
-            .card {
-                flex-direction: column;
-                text-align: center;
-                padding: 1.5rem;
+            .header-content {
+                padding: 0.75rem 1rem;
             }
             
-            h1 {
-                font-size: 2rem;
+            .main-content {
+                margin-top: 3.5rem;
             }
         }
     </style>
+	
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Manejo del header oculto/visible
+            const header = document.querySelector('.header');
+            // Ocultar el header inicialmente
+            header.classList.add('hidden');
+            
+            let lastScrollTop = 0;
+            let scrollThreshold = 50; // Umbral para mostrar el header
+            
+            window.addEventListener('scroll', function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Si hemos bajado más del umbral, mostrar el header
+                if (scrollTop > scrollThreshold) {
+                    header.classList.remove('hidden');
+                } else {
+                    // Si estamos cerca del inicio, ocultar el header
+                    header.classList.add('hidden');
+                }
+                
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            }, false);
+            
+            // Cambio de idioma
+            const esBtn = document.getElementById('es-btn');
+            const enBtn = document.getElementById('en-btn');
+            
+            // Contenido en español
+            const spanishContent = {
+                title: "Hola, soy Guillermo Uranga",
+                subtitle: "Ingeniero de Software",
+                intro1: "Aunque todos me conocen como <span class=\"highlight\">Memo Uranga</span>. A mis 36 años, me considero un millennial en toda regla, viajero de corazón y creador inquieto por naturaleza, profundamente enamorado de dos personas: mi esposa y mi hija, e infinitamente agradecido por mi familia.",
+                intro2: "Mi inquietud me llevó a estudiar <span class=\"accent\">Ingeniería de Software</span>, pues nada me apasiona más que sentarme a crear cosas que tengan un propósito real, ya sea en mi vida cotidiana o en mi desarrollo profesional teniendo a los viajes como mi mejor escuela. Cada destino me ha abierto la mente y, en numerosas ocasiones, ha transformado mi forma de pensar y mi visión sobre realmente cuál es mi propósito. Creo firmemente que conocer nuevas culturas y perspectivas es la mejor manera de conocerte y desarrollarte.",
+                dev: "Desarrollo principalmente con <span class=\"highlight\">Ruby on Rails</span>, un framework que me permite crear aplicaciones robustas y completas en tiempo récord, combinando elegancia y productividad. La filosofía de \"convención sobre configuración\" de Rails me permite pasar del concepto a la implementación productiva sin distracciones innecesarias, enfocándome en lo que realmente importa: resolver problemas. Aunque siempre estoy experimentando con nuevas tecnologías, tanto de código, servicios, máquinas, etc, que amplíen mis horizontes como creador.",
+                proj1: "Por lo cual, e influenciado por la profesión de mi madre y mi esposa fundé <span class=\"highlight\">CloudHealth</span> con un sueño claro: lograr que algún día todos podamos tener pleno conocimiento de nuestra salud y, con ello, mayor control sobre nuestro bienestar. Mi visión es que las tecnologías nos ayuden a prevenir enfermedades antes que combatirlas—más vitaminas, menos antibióticos.",
+                proj2: "Pero como no puedo estar en paz, junto a mis primos creamos la app de <span class=\"highlight\">Skills N Talents</span>, una aplicación diseñada para optimizar y mejorar estilos de natación utilizando tecnología avanzada y la propia experiencia y librerías de conocimiento de ellos.",
+                proj3: "Nunca estoy en paz, siempre con ideas y proyectos nuevos en manos, ahora tengo a <span class=\"highlight\">Beyond the Code</span>, mi nuevo Blog, desarrollado y escrito por mí en donde podrás conocer más sobre mi experiencia y tecnologías con las que juego día a día. Creo que la tecnología debe estar al servicio de las personas, mejorando vidas y solucionando problemas reales.",
+                quote: "No me conformo con lo establecido, con lo común y busco constantemente nuevas formas de innovar y crear impacto positivo a través de mis proyectos."
+            };
+            
+            // Contenido en inglés
+            const englishContent = {
+                title: "Hi, I'm Guillermo Uranga",
+                subtitle: "Software Engineer",
+                intro1: "But everyone knows me as <span class=\"highlight\">Memo Uranga</span>. At 36, I consider myself a millennial through and through, a traveler at heart and a restless creator by nature, deeply in love with two people: my wife and my daughter, and I am infinitely grateful for my family.",
+                intro2: "My restlessness led me to study <span class=\"accent\">Software Engineering</span>, as nothing excites me more than sitting down to create things that have a real purpose, whether in my daily life or in my professional development, with travels being my best school. Each destination has opened my mind and, on numerous occasions, transformed my way of thinking and my vision of what my purpose really is. I firmly believe that experiencing new cultures and perspectives is the best way to know yourself and grow.",
+                dev: "I mainly develop with <span class=\"highlight\">Ruby on Rails</span>, a framework that allows me to create robust and complete applications in record time, combining elegance and productivity. Rails' philosophy of \"convention over configuration\" allows me to go from concept to productive implementation without unnecessary distractions, focusing on what really matters: solving problems. Although I'm always experimenting with new technologies, including code, services, machines, etc., that expand my horizons as a creator.",
+                proj1: "Influenced by my mother's and wife's professions, I founded <span class=\"highlight\">CloudHealth</span> with a clear dream: to ensure that someday we can all have full knowledge of our health and, with it, greater control over our well-being. My vision is for technologies to help us prevent diseases rather than fight them—more vitamins, fewer antibiotics.",
+                proj2: "But as I can't be at peace, together with my cousins we created the <span class=\"highlight\">Skills N Talents</span> app, an application designed to optimize and improve swimming styles using advanced technology and their own experience and knowledge libraries.",
+                proj3: "I'm never at peace, always with new ideas and projects in hand. Now I have <span class=\"highlight\">Beyond the Code</span>, my new Blog, developed and written by me where you can learn more about my experience and technologies I play with every day. I believe that technology should serve people, improving lives and solving real problems.",
+                quote: "I don't conform to the established, to the common, and I constantly seek new ways to innovate and create positive impact through my projects."
+            };
+            
+            // Elementos del DOM a actualizar
+            const titleEl = document.querySelector('h1:not(.header-title)');
+            const subtitleEl = document.querySelector('.subtitle');
+            const paragraphs = document.querySelectorAll('p');
+            const titles = document.querySelectorAll('h2');
+            const quote = document.querySelector('.quote');
+            
+            // Actualizar contenido según el idioma
+            function updateContent(content) {
+                titleEl.innerHTML = content.title;
+                subtitleEl.innerHTML = content.subtitle;
+                paragraphs[0].innerHTML = content.intro1;
+                paragraphs[1].innerHTML = content.intro2;
+                paragraphs[2].innerHTML = content.dev;
+                paragraphs[3].innerHTML = content.proj1;
+                paragraphs[4].innerHTML = content.proj2;
+                paragraphs[5].innerHTML = content.proj3;
+                quote.innerHTML = content.quote;
+            }
+            
+            // Event listeners para los botones
+            esBtn.addEventListener('click', function() {
+                esBtn.classList.add('active');
+                enBtn.classList.remove('active');
+                updateContent(spanishContent);
+            });
+            
+            enBtn.addEventListener('click', function() {
+                enBtn.classList.add('active');
+                esBtn.classList.remove('active');
+                updateContent(englishContent);
+            });
+        });
+    </script>
 </head>
 <body>
-    <div class="container">
-        
-        <div class="card">
-            <div class="profile-img">
-                <img src="profile.jpg" />
+    <div class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <span class="prompt-symbol">></span>
+                <h1 class="header-title">Memo Uranga<span class="cursor"></span></h1>
             </div>
-            <div>
-                <h1>Hola, soy Memo Uranga</h1>
-                <div class="subtitle">Software Engineer</div>
+            <div class="language-selector">
+                <button id="es-btn" class="language-btn active">ES</button>
+                <button id="en-btn" class="language-btn">EN</button>
             </div>
         </div>
+    </div>
 
-        <br><br>
-        <div class="content">
-            <p>Aunque todos me conocen como <span class="highlight">Memo Uranga</span>. A mis 36 años, me considero un millennial en toda regla, viajero de corazón y creador inquieto por naturaleza, profundamente enamorado de dos personas: mi esposa y mi hija.</p>
-                
-            <p>Mi inquietud me llevó a estudiar <span class="highlight">Ingeniería de Software</span>, pues nada me apasiona más que sentarme a crear cosas que tengan un propósito real, ya sea en mi vida cotidiana o en mi desarrollo profesional teniendo a los viajes como mi mejor escuela. Cada destino me ha abierto la mente y, en numerosas ocasiones, ha transformado mi forma de pensar y mi visión sobre realmente cuál es mi propósito. Creo firmemente que conocer nuevas culturas y perspectivas es la mejor manera de conocerte y desarrollarte.</p>
-                
+    <div class="container main-content">
+        <div class="card">
+			<div class="title-container">
+			  <div>
+			    <h1>Hola, soy Guillermo Uranga</h1>
+			    <div class="subtitle">Software Engineer</div>
+			  </div>
+			  <img src="profile.jpg" alt="Memo Uranga" class="profile-image">
+			</div>			
+            
+            <p>Aunque todos me conocen como <span class="highlight">Memo Uranga</span>. A mis 36 años, me considero un millennial en toda regla, viajero de corazón y creador inquieto por naturaleza, profundamente enamorado de dos personas: mi esposa y mi hija, e infinitamente agradecido por mi familia.</p>
+            
+            <p>Mi inquietud me llevó a estudiar <span class="accent">Ingeniería de Software</span>, pues nada me apasiona más que sentarme a crear cosas que tengan un propósito real, ya sea en mi vida cotidiana o en mi desarrollo profesional teniendo a los viajes como mi mejor escuela. Cada destino me ha abierto la mente y, en numerosas ocasiones, ha transformado mi forma de pensar y mi visión sobre realmente cuál es mi propósito. Creo firmemente que conocer nuevas culturas y perspectivas es la mejor manera de conocerte y desarrollarte.</p>
+            
             <p>Desarrollo principalmente con <span class="highlight">Ruby on Rails</span>, un framework que me permite crear aplicaciones robustas y completas en tiempo récord, combinando elegancia y productividad. La filosofía de "convención sobre configuración" de Rails me permite pasar del concepto a la implementación productiva sin distracciones innecesarias, enfocándome en lo que realmente importa: resolver problemas. Aunque siempre estoy experimentando con nuevas tecnologías, tanto de código, servicios, máquinas, etc, que amplíen mis horizontes como creador.</p>
             
             <p>Por lo cual, e influenciado por la profesión de mi madre y mi esposa fundé <span class="highlight">CloudHealth</span> con un sueño claro: lograr que algún día todos podamos tener pleno conocimiento de nuestra salud y, con ello, mayor control sobre nuestro bienestar. Mi visión es que las tecnologías nos ayuden a prevenir enfermedades antes que combatirlas—más vitaminas, menos antibióticos.</p>
-                
+            
             <p>Pero como no puedo estar en paz, junto a mis primos creamos la app de <span class="highlight">Skills N Talents</span>, una aplicación diseñada para optimizar y mejorar estilos de natación utilizando tecnología avanzada y la propia experiencia y librerías de conocimiento de ellos.</p>
-                
-            <p>Nunca estoy en paz, siempre con ideas y proyectos nuevos en manos, ahora tengo a <span class="highlight">Beyond the Code</span>, mi nuevo Blog, desarrollado y escrito por mí en donde podrás conocer más sobre mi experiencia y tecnologías con las que juego día a día. Creo que la tecnología debe estar al servicio de las personas, mejorando vidas y solucionando problemas reales. No me conformo con lo establecido, con lo común y busco constantemente nuevas formas de innovar y crear impacto positivo a través de mis proyectos.</p>
+            
+            <p>Nunca estoy en paz, siempre con ideas y proyectos nuevos en manos, ahora tengo a <span class="highlight">Beyond the Code</span>, mi nuevo Blog, desarrollado y escrito por mí en donde podrás conocer más sobre mi experiencia y tecnologías con las que juego día a día. Creo que la tecnología debe estar al servicio de las personas, mejorando vidas y solucionando problemas reales.</p>
+            
+            
         </div>
-
+		
+        <div class="quote">
+            No me conformo con lo establecido, con lo común y busco constantemente nuevas formas de innovar y crear impacto positivo a través de mis proyectos.
+        </div>
+        
         <div class="social-links">
-            <a href="https://github.com/memouranga" title="GitHub"><i class="fa-brands fa-github"></i> Github</a>
-            <a href="#" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
-            <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="#" title="Blog"><i class="fa-solid fa-blog"></i></a>
+            <a href="#" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="#" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#" target="_blank" title="Blog"><i class="fa-solid fa-blog"></i></a>
         </div>
     </div>
 </body>
